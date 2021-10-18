@@ -1,0 +1,22 @@
+<section class="bg-light py-3 border-bottom mb-4" *ngIf="islogin">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                    <span style="height: 50px; width: 50px;" class="p-3 bg-white rounded-circle border me-3 shadow-sm"></span>
+                    <div>
+                        <p class="m-0"><strong class="d-block">{{activeUser.name}} ({{activeUser.role | titlecase}})</strong> {{activeUser.email}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 text-end">
+                <button (click)="logout()" class="btn btn-primary">Logout</button>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5">
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</section>

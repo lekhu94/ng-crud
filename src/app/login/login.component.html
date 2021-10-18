@@ -1,0 +1,31 @@
+<section class="py-5">
+    <div class="container">
+        <div class="card p-5 rounded shadow-sm w-50 mx-auto">
+            <h1 class="text-center mb-2 h2">Login</h1>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div>
+                    <label class="d-block mb-2" for="">Email <span class="text-danger">*</span></label>
+                    <input formControlName="email" type="email" class="form-control" placeholder="Email" autocomplete="off" />
+                    <p *ngIf="form.controls.email.invalid && form.controls.email.touched" class="text-danger mt-1 mb-0">
+                        <span *ngIf="form.controls.email.errors?.required">Email is required.</span>
+                        <span *ngIf="form.controls.email.errors?.pattern">Email is is not valid.</span>
+                    </p>
+                </div>
+                <div class="my-4">
+                    <label class="d-block mb-2" for="">Password <span class="text-danger">*</span></label>
+                    <input formControlName="password" type="password" class="form-control" placeholder="*******" autocomplete="new-password" />
+                    <p *ngIf="form.controls.password.invalid && form.controls.password.touched" class="text-danger mt-1 mb-0">
+                        <span>Password is required.</span>
+                    </p>
+                </div>
+                <div class="text-center">
+                    <button [disabled]="isSubmit || form.invalid" class="btn btn-success" type="submit">Submit
+                        <span *ngIf="isSubmit" class="spinner-border spinner-border-sm text-light" role="status">
+                            <i class="visually-hidden">Loading...</i>
+                          </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

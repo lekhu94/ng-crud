@@ -1,0 +1,70 @@
+<h3 class="mb-4 p-3 border d-flex align-items-center rounded">Users
+    <button *ngIf="activeUser.role == 'admin'" class="btn btn-primary ms-auto btn-sm" [routerLink]="['add']">Add New
+        User</button>
+</h3>
+<div class="p-3 py-2 border rounded my-4 ">
+    <div class="row align-items-end">
+        <div class="col-2">
+            <span>Items per page</span>
+            <select name="items" (change)="onNavchange($event)" class="form-control mt-2">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <span>Select By Role</span>
+            <select [(ngModel)]="role" (change)="byRole($event)" class="form-control mt-2">
+                <option value="">All</option>
+                <option value="customer">Customer</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+        <div class="col-4">
+            <span>Search By Name or Email</span>
+            <input #input type="text" class="form-control mt-2">
+        </div>
+        <div class="col">
+            <button (click)="resetFilters()" class="btn btn-info text-white">Reset</button>
+        </div>
+    </div>
+</div>
+<div class="table-data position-relative">
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users; index as index">
+                <td>{{index+1}}.</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.role | titlecase}}</td>
+                <td>
+                    <span *ngIf="activeUser.role != 'admin'" class="text-info text-uppercase">No permssion</span>
+                    <button *ngIf="activeUser.role == 'admin'" class="btn btn-info text-white me-2 btn-sm"
+                        [routerLink]="['edit',user.id]">Edit</button>
+                    <button *ngIf="activeUser.role == 'admin'" class="btn btn-danger btn-sm"
+                        (click)="deleteUser(user.id)">Delete</button>
+                </td>
+            </tr>
+            <tr *ngIf="users && users.length==0">
+                <td colspan="5">
+                    <div class="text-info p-3 text-center h6 m-0">No result found.!</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="isLoading" class="loader position-absolute h-100 w-100 bg-dark bg-opacity-25 d-flex align-items-center justify-content-center" style="top: 0;left: 0;">
+        <div class="spinner-grow text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
